@@ -70,21 +70,6 @@ export class ContratosComponent implements OnInit {
     });
   }
 
-  // Obtengo un registro especifico según el Id
-  BuscarPorId(con, AccionABMC) {
-    window.scroll(0, 0); // ir al incio del scroll
-
-    this.ContratosServicio.getById(con.IdContrato).subscribe((res: any) => {
-      this.FormReg.patchValue(res);
-      //formatear fecha de  ISO 8061 a string dd/MM/yyyy
-      var arrFecha = res.FechaFundacion.substr(0, 10).split("-");
-      this.FormReg.controls.FechaFundacion.patchValue(
-        arrFecha[2] + "/" + arrFecha[1] + "/" + arrFecha[0]
-      );
-      this.AccionABMC = AccionABMC;
-    });
-  }
-
   Grabar() {
     this.submitted = true;
     // verificar que los validadores esten OK
