@@ -20,7 +20,7 @@ export class ContratosComponent implements OnInit {
     L: "(Listado)"
   };
 
-  AccionABMC = "L"; // inicialmente inicia en el listado de articulos (buscar con parametros)
+  AccionABMC = "L";
   Mensajes = {
     SD: " No se encontraron registros...",
     RD: " Revisar los datos ingresados..."
@@ -34,9 +34,7 @@ export class ContratosComponent implements OnInit {
 
   constructor(
     public formBuilder: FormBuilder,
-    //private articulosService: MockArticulosService,
     private ContratosServicio: ContratosService,
-    //private articulosFamiliasService: ArticulosFamiliasService,
     private modalDialogService: ModalDialogService
   ) {}
 
@@ -50,7 +48,7 @@ export class ContratosComponent implements OnInit {
       ],
       ContratoImporte: [
         null,
-        [Validators.required, Validators.pattern("[0-9]{1,7}")]
+        [Validators.required, Validators.pattern("[0-9]{1,7}d{0,2}")]
       ]
     });
   }
@@ -62,7 +60,6 @@ export class ContratosComponent implements OnInit {
     this.FormReg.markAsUntouched();
   }
 
-  // Buscar segun los filtros, establecidos en FormReg
   Buscar() {
     this.SinBusquedasRealizadas = false;
     this.ContratosServicio.get().subscribe((res: Contrato[]) => {
