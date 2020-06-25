@@ -85,7 +85,6 @@ export class ContratosComponent implements OnInit {
     });
   }
 
-  // grabar tanto altas como modificaciones
   Grabar() {
     this.submitted = true;
     // verificar que los validadores esten OK
@@ -93,31 +92,15 @@ export class ContratosComponent implements OnInit {
       return;
     }
 
-    //hacemos una copia de los datos del formulario, para modificar la fecha y luego enviarlo al servidor
     const itemCopy = { ...this.FormReg.value };
-
-    // agregar post
-    if (this.AccionABMC == "A") {
       this.ContratosServicio.post(itemCopy).subscribe((res: any) => {
         this.Volver();
         this.modalDialogService.Alert("Registro agregado correctamente.");
         this.Buscar();
       });
-    } else {
-      if ((this.AccionABMC = "M")) {
-        // modificar put
-        this.ContratosServicio.put(itemCopy.IdContrato, itemCopy).subscribe(
-          (res: any) => {
-            this.Volver();
-            this.modalDialogService.Alert("Registro modificado correctamente.");
-            this.Buscar();
-          }
-        );
-      }
-    }
+    
   }
 
-  // Volver desde Agregar/Modificar
   Volver() {
     this.AccionABMC = "L";
   }
