@@ -20,7 +20,7 @@ import { ArticulosComponent } from "./components/articulos/articulos.component";
 import { ArticulosFamiliasComponent } from "./components/articulos-familias/articulos-familias.component";
 import { ModalDialogComponent } from "./components/modal-dialog/modal-dialog.component";
 import { ContratosComponent } from "./components/contratos/contratos.component";
-import { ContratoService } from "./services/contratos.service";
+import { ContratosService } from "./services/contratos.service";
 
 @NgModule({
   declarations: [
@@ -29,7 +29,8 @@ import { ContratoService } from "./services/contratos.service";
     InicioComponent,
     ArticulosComponent,
     ArticulosFamiliasComponent,
-    ModalDialogComponent
+    ModalDialogComponent,
+    ContratosComponent
   ],
   imports: [
     BrowserModule,

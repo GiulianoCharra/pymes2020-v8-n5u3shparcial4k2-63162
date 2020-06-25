@@ -1,10 +1,8 @@
 <h3>{{Titulo}} <small>{{TituloAccionABMC[AccionABMC]}}</small></h3>
 
-<!-- Formulario Filtro de busqueda, se ve cuando la accion es Listado(busqueda/listado)-->
 <form name="FormFiltro" [formGroup]='FormFiltro' class="bg-light" *ngIf="AccionABMC == 'L'">
 	<div class="form-group row">
 		</div>
-			<!-- Botones -->
 		<div class="row justify-content-center">
 			<button type="button" class="btn btn-primary" (click)="Agregar()">
 	    <span class="fas fa-plus"> </span> 
@@ -13,30 +11,21 @@
 		</div>
 </form>
 
-<!-- Tabla de resutados de busqueda y Paginador-->
+<!-- Tabla de resutados de busqueda-->
 <div id="TablaListado" *ngIf="AccionABMC == 'L' && Lista?.length > 0">
 	<table class="table table-bordered table-striped">
 		<thead>
 			<tr>
 				<th class="text-center">Id Contrato</th>
-				<th class="text-center">ContratoDescripcion</th>
+				<th class="text-center">Descripcion</th>
 				<th class="text-center">Importe</th>
-				<th class="text-center text-nowrap">Acciones</th>
 			</tr>
 		</thead>
 		<tbody>
 			<tr *ngFor="let con of Lista">
 				<td>{{con.IdContrato}}</td>
 				<td class="text-right">{{con.ContratoDescripcion}}</td>
-				<td class="text-right">{{con.CantidadEmpleados}}</td>
-				<td class="text-center text-nowrap">
-					<button type="button" class="btn btn-sm btn-outline-primary" title="Modificar" (click)="Modificar(emp)">
-                    <span class="fas fa-pencil-alt"></span>
-          </button>
-					<button type="button" class="btn btn-sm btn-outline-danger" tittle="Eliminar" (click)="Eliminar(emp)">
-            <span class="fas fa-times"></span>
-          </button>
-				</td>
+				<td class="text-right">{{con.ContratoImporte}}</td>
 			</tr>
 		</tbody>
 	</table>
@@ -75,74 +64,32 @@
 			</div>
 		</div>
 
-  <!--campo IdContrato-->
-		<div class="form-group row" >
-			<label class="col-form-label col-sm-2 col-sm-offset-2" for="IdContrato">
-		                Id Contrato <span class="text-danger">*</span>
-		            </label>
-			<div class="col-sm-6" ng-model="all">
-				<input class="form-control ng-touched ng-pristine ng-valid" type="text" name="IdContrato" class="form-control" formControlName="IdContrato" [value]=0 [readonly]="EstadoRead" 
-		        [ngClass]="{'is-invalid': (FormReg.controls.IdContrato.touched || submitted)  
-		            && FormReg.controls.IdContrato.errors}" />
-				<span class="text-danger" *ngIf="(FormReg.controls.IdContrato.touched || submitted) 
-		                        && FormReg.controls.IdContrato.errors?.required">
-		                    Dato requerido.
-		                </span>
-				<span class="text-danger" *ngIf="(FormReg.controls.IdContrato.touched || submitted) 
-		                        && FormReg.controls.IdContrato.errors?.pattern">
-		                    Dato numérico, 1 a 7 dígitos.
-		                </span>
-			</div>
-		</div>
-
-
-		<!--campo CantidadEmpleados-->
+		<!--campo ContratoImporte-->
 		<div class="form-group row">
-			<label class="col-form-label col-sm-2 col-sm-offset-2" for="CantidadEmpleados">
-                Cantidad de Empleados <span class="text-danger">*</span>
+			<label class="col-form-label col-sm-2 col-sm-offset-2" for="ContratoImporte">
+                Importe <span class="text-danger">*</span>
             </label>
 			<div class="col-sm-6">
-				<input type="text" name="CantidadEmpleados" class="form-control" formControlName="CantidadEmpleados"
-        [ngClass]="{'is-invalid': (FormReg.controls.CantidadEmpleados.touched || submitted)  
-            && FormReg.controls.CantidadEmpleados.errors}" />
-				<span class="text-danger" *ngIf="(FormReg.controls.CantidadEmpleados.touched || submitted) 
-                       && FormReg.controls.CantidadEmpleados.errors?.required">
+				<input type="text" name="ContratoImporte" class="form-control" formControlName="ContratoImporte"
+        [ngClass]="{'is-invalid': (FormReg.controls.ContratoImporte.touched || submitted)  
+            && FormReg.controls.ContratoImporte.errors}" />
+				<span class="text-danger" *ngIf="(FormReg.controls.ContratoImporte.touched || submitted) 
+                       && FormReg.controls.ContratoImporte.errors?.required">
                     Dato requerido.
                 </span>
-				<span class="text-danger" *ngIf="(FormReg.controls.CantidadEmpleados.touched || submitted) 
-                       && FormReg.controls.CantidadEmpleados.errors?.pattern">
-                    Dato numérico, 13 dígitos.
+				<span class="text-danger" *ngIf="(FormReg.controls.ContratoImporte.touched || submitted) 
+                       && FormReg.controls.ContratoImporte.errors?.pattern">
+                    Dato numérico
                 </span>
 			</div>
 		</div>
 
-
-		<!--campo FechaFundacion-->
-		<div class="form-group row">
-			<label class="col-form-label col-sm-2 col-sm-offset-2">Fecha de Fundacion <span
-                    class="text-danger">*</span></label>
-			<div class="col-sm-6">
-				<input class="form-control"
-                           name="FechaFundacion" formControlName="FechaFundacion"
-                           [ngClass]="{'is-invalid': (FormReg.controls.FechaFundacion.touched || submitted)  
-            && FormReg.controls.FechaFundacion.errors}" />
-
-				<span class="text-danger" *ngIf="(FormReg.controls.FechaFundacion.touched || submitted) 
-                       && FormReg.controls.FechaFundacion.errors?.required">
-                    Dato requerido.
-                </span>
-				<span class="text-danger" *ngIf="(FormReg.controls.FechaFundacion.touched || submitted) 
-                       && FormReg.controls.FechaFundacion.errors?.pattern">
-                    Dato fecha, formato dd/mm/aaaa.
-        </span>
-			</div>
-		</div>
 	</fieldset>
 
 	<!-- Botones Grabar, Cancelar/Volver' -->
 	<div class="row justify-content-center">
 		<button type="button" *ngIf="AccionABMC!=='C'" class="btn btn-primary" (click)="Grabar()">
-            <span class="fas fa-check"></span> Grabar
+            <span class="fas fa-check"></span> Grabar 
         </button>
 		&nbsp;
 		<button type="button" class="btn btn-warning" (click)="Volver()">

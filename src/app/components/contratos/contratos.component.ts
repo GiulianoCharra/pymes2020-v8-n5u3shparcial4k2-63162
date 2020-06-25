@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
-import { Contrato } from "../../models/Contrato";
-import { ContratoService } from "../../services/Contratos.service";
+import { Contrato } from "../../models/contrato";
+import { ContratosService } from "../../services/contratos.service";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { ModalDialogService } from "../../services/modal-dialog.service";
 
@@ -10,7 +10,6 @@ import { ModalDialogService } from "../../services/modal-dialog.service";
   styleUrls: ["./contratos.component.css"]
 })
 export class ContratosComponent implements OnInit {
-  EstadoRead: Boolean = false;
   Titulo = "Contratos";
 
   TituloAccionABMC = {
@@ -21,7 +20,7 @@ export class ContratosComponent implements OnInit {
     L: "(Listado)"
   };
 
-  AccionABMC = "L";
+  AccionABMC = "L"; // inicialmente inicia en el listado de articulos (buscar con parametros)
   Mensajes = {
     SD: " No se encontraron registros...",
     RD: " Revisar los datos ingresados..."
@@ -35,7 +34,9 @@ export class ContratosComponent implements OnInit {
 
   constructor(
     public formBuilder: FormBuilder,
-    private ContratosServicio: ContratoService,
+    //private articulosService: MockArticulosService,
+    private ContratosServicio: ContratosService,
+    //private articulosFamiliasService: ArticulosFamiliasService,
     private modalDialogService: ModalDialogService
   ) {}
 
@@ -46,10 +47,6 @@ export class ContratosComponent implements OnInit {
       ContratoDescripcion: [
         "",
         [Validators.required, Validators.minLength(2), Validators.maxLength(55)]
-      ],
-      IdContrato: [
-        null,
-        [Validators.required, Validators.pattern("[0-9]{1,7}")]
       ],
       ContratoImporte: [
         null,
@@ -63,7 +60,6 @@ export class ContratosComponent implements OnInit {
     this.FormReg.reset();
     this.submitted = false;
     this.FormReg.markAsUntouched();
-    this.FormReg.controls.IdContrato.markAsPristine;
   }
 
   // Buscar segun los filtros, establecidos en FormReg
@@ -75,10 +71,10 @@ export class ContratosComponent implements OnInit {
   }
 
   // Obtengo un registro especifico según el Id
-  BuscarPorId(Emp, AccionABMC) {
+  BuscarPorId(con, AccionABMC) {
     window.scroll(0, 0); // ir al incio del scroll
 
-    this.ContratosServicio.getById(Emp.IdContrato).subscribe((res: any) => {
+    this.ContratosServicio.getById(con.IdContrato).subscribe((res: any) => {
       this.FormReg.patchValue(res);
       //formatear fecha de  ISO 8061 a string dd/MM/yyyy
       var arrFecha = res.FechaFundacion.substr(0, 10).split("-");
@@ -87,20 +83,6 @@ export class ContratosComponent implements OnInit {
       );
       this.AccionABMC = AccionABMC;
     });
-  }
-
-  Consultar(Emp) {
-    this.BuscarPorId(Emp, "C");
-  }
-
-  // comienza la modificacion, luego la confirma con el metodo Grabar
-  Modificar(Emp) {
-    this.EstadoRead = true;
-    this.submitted = false;
-    this.FormReg.markAsPristine();
-    this.FormReg.markAsUntouched();
-    this.FormReg.controls.IdContrato.disabled;
-    this.BuscarPorId(Emp, "M");
   }
 
   // grabar tanto altas como modificaciones
@@ -113,15 +95,6 @@ export class ContratosComponent implements OnInit {
 
     //hacemos una copia de los datos del formulario, para modificar la fecha y luego enviarlo al servidor
     const itemCopy = { ...this.FormReg.value };
-
-    //convertir fecha de string dd/MM/yyyy a ISO para que la entienda webapi
-    var arrFecha = itemCopy.FechaFundacion.substr(0, 10).split("/");
-    if (arrFecha.length == 3)
-      itemCopy.FechaFundacion = new Date(
-        arrFecha[2],
-        arrFecha[1] - 1,
-        arrFecha[0]
-      ).toISOString();
 
     // agregar post
     if (this.AccionABMC == "A") {
@@ -144,24 +117,8 @@ export class ContratosComponent implements OnInit {
     }
   }
 
-  // representa la baja logica
-  Eliminar(Emp) {
-    this.modalDialogService.Confirm(
-      "Esta seguro de Eliminar este registro?",
-      undefined,
-      undefined,
-      undefined,
-      () =>
-        this.ContratosServicio.delete(Emp.IdContrato).subscribe((res: any) =>
-          this.Buscar()
-        ),
-      null
-    );
-  }
-
   // Volver desde Agregar/Modificar
   Volver() {
     this.AccionABMC = "L";
-    this.EstadoRead = false;
   }
 }

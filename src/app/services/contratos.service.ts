@@ -3,7 +3,9 @@ import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
 import { Contrato } from "../models/contrato";
 
-@Injectable()
+@Injectable({
+  providedIn: "root"
+})
 export class ContratosService {
   resourceURL: string;
   constructor(private httpClient: HttpClient) {
