@@ -42,11 +42,11 @@ export class ContratosComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.Buscar();
     this.FormFiltro = this.formBuilder.group({
-      RazonSocial: [""]
     });
     this.FormReg = this.formBuilder.group({
-      RazonSocial: [
+      ContratoDescripcion: [
         "",
         [Validators.required, Validators.minLength(2), Validators.maxLength(55)]
       ],
@@ -54,18 +54,9 @@ export class ContratosComponent implements OnInit {
         null,
         [Validators.required, Validators.pattern("[0-9]{1,7}")]
       ],
-      CantidadEmpleados: [
+      ContratoImporte: [
         null,
         [Validators.required, Validators.pattern("[0-9]{1,7}")]
-      ],
-      FechaFundacion: [
-        "",
-        [
-          Validators.required,
-          Validators.pattern(
-            "(0[1-9]|[12][0-9]|3[01])[-/](0[1-9]|1[012])[-/](19|20)[0-9]{2}"
-          )
-        ]
       ]
     });
   }
@@ -176,5 +167,4 @@ export class ContratosComponent implements OnInit {
     this.AccionABMC = "L";
     this.EstadoRead = false;
   }
-}
 }

@@ -20,7 +20,7 @@ import { ArticulosComponent } from "./components/articulos/articulos.component";
 import { ArticulosFamiliasComponent } from "./components/articulos-familias/articulos-familias.component";
 import { ModalDialogComponent } from "./components/modal-dialog/modal-dialog.component";
 import { ContratosComponent } from "./components/contratos/contratos.component";
-import { ContratoService } from "./services/contrato.service";
+import { ContratoService } from "./services/contratos.service";
 
 @NgModule({
   declarations: [
@@ -29,8 +29,7 @@ import { ContratoService } from "./services/contrato.service";
     InicioComponent,
     ArticulosComponent,
     ArticulosFamiliasComponent,
-    ModalDialogComponent,
-    ContratosComponent
+    ModalDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -41,7 +40,7 @@ import { ContratoService } from "./services/contrato.service";
       { path: "inicio", component: InicioComponent },
       { path: "articulos", component: ArticulosComponent },
       { path: "articulosfamilias", component: ArticulosFamiliasComponent },
-      { path: "contratos", component: ContratosComponent },
+      { path: "contratos", component: ContratosComponent }
     ]),
     NgbPaginationModule,
     NgbModalModule
