@@ -3,13 +3,6 @@
 <!-- Formulario Filtro de busqueda, se ve cuando la accion es Listado(busqueda/listado)-->
 <form name="FormFiltro" [formGroup]='FormFiltro' class="bg-light" *ngIf="AccionABMC == 'L'">
 	<div class="form-group row">
-		<label class="col-form-label col-sm-2 col-sm-offset-1">
-            RazonSocial:
-    </label>
-		<div class="col-sm-3">
-			<input type="text" name="RazonSocial" class="form-control" formControlName="RazonSocial" maxlength="55"/>
-    </div>
-
 		</div>
 			<!-- Botones -->
 		<div class="row justify-content-center">
@@ -25,19 +18,17 @@
 	<table class="table table-bordered table-striped">
 		<thead>
 			<tr>
-				<th class="text-center">Id Empresa</th>
-				<th class="text-center">RazonSocial</th>
-				<th class="text-center">CantidadEmpleados</th>
-				<th class="text-center">Fecha de Fundacion</th>
+				<th class="text-center">Id Contrato</th>
+				<th class="text-center">ContratoDescripcion</th>
+				<th class="text-center">Importe</th>
 				<th class="text-center text-nowrap">Acciones</th>
 			</tr>
 		</thead>
 		<tbody>
-			<tr *ngFor="let emp of Lista">
-				<td>{{emp.IdEmpresa}}</td>
-				<td class="text-right">{{emp.RazonSocial}}</td>
-				<td class="text-right">{{emp.CantidadEmpleados}}</td>
-				<td>{{emp.FechaFundacion | date:'dd/MM/yyyy'}}</td>
+			<tr *ngFor="let con of Lista">
+				<td>{{con.IdContrato}}</td>
+				<td class="text-right">{{con.ContratoDescripcion}}</td>
+				<td class="text-right">{{con.CantidadEmpleados}}</td>
 				<td class="text-center text-nowrap">
 					<button type="button" class="btn btn-sm btn-outline-primary" title="Modificar" (click)="Modificar(emp)">
                     <span class="fas fa-pencil-alt"></span>
@@ -64,41 +55,41 @@
 <form name="FormReg" [formGroup]='FormReg' *ngIf="AccionABMC != 'L'" class="bg-light">
 
 	<fieldset [disabled]="AccionABMC==='C'">
-		<!--campo RazonSocial-->
+		<!--campo ContratoDescripcion-->
 		<div class="form-group row">
-			<label class="col-form-label col-sm-2 col-sm-offset-2" for="RazonSocial">Razon Social <span
+			<label class="col-form-label col-sm-2 col-sm-offset-2" for="ContratoDescripcion">Descripcion <span
                     class="text-danger">*</span></label>
 			<div class="col-sm-6">
-				<input type="text" class="form-control" formControlName="RazonSocial"
-         [ngClass]="{'is-invalid': (FormReg.controls.RazonSocial.touched || submitted)  
-            && FormReg.controls.RazonSocial.errors}" />
+				<input type="text" class="form-control" formControlName="ContratoDescripcion"
+         [ngClass]="{'is-invalid': (FormReg.controls.ContratoDescripcion.touched || submitted)  
+            && FormReg.controls.ContratoDescripcion.errors}" />
 
-				<span class="text-danger" *ngIf="(FormReg.controls.RazonSocial.touched || submitted) 
-                        && FormReg.controls.RazonSocial.errors?.required">
+				<span class="text-danger" *ngIf="(FormReg.controls.ContratoDescripcion.touched || submitted) 
+                        && FormReg.controls.ContratoDescripcion.errors?.required">
                     Dato requerido.
                 </span>
-				<span class="text-danger" *ngIf="(FormReg.controls.RazonSocial.touched || submitted) 
-                       && (FormReg.controls.RazonSocial.errors?.minlength || FormReg.controls.RazonSocial.errors?.maxlength) ">
+				<span class="text-danger" *ngIf="(FormReg.controls.ContratoDescripcion.touched || submitted) 
+                       && (FormReg.controls.ContratoDescripcion.errors?.minlength || FormReg.controls.ContratoDescripcion.errors?.maxlength) ">
                     Dato texto, 2 a 55 caracteres.
                 </span>
 			</div>
 		</div>
 
-  <!--campo IdEmpresa-->
+  <!--campo IdContrato-->
 		<div class="form-group row" >
-			<label class="col-form-label col-sm-2 col-sm-offset-2" for="IdEmpresa">
-		                Id Empresa <span class="text-danger">*</span>
+			<label class="col-form-label col-sm-2 col-sm-offset-2" for="IdContrato">
+		                Id Contrato <span class="text-danger">*</span>
 		            </label>
 			<div class="col-sm-6" ng-model="all">
-				<input class="form-control ng-touched ng-pristine ng-valid" type="text" name="IdEmpresa" class="form-control" formControlName="IdEmpresa" [value]=0 [readonly]="EstadoRead" 
-		        [ngClass]="{'is-invalid': (FormReg.controls.IdEmpresa.touched || submitted)  
-		            && FormReg.controls.IdEmpresa.errors}" />
-				<span class="text-danger" *ngIf="(FormReg.controls.IdEmpresa.touched || submitted) 
-		                        && FormReg.controls.IdEmpresa.errors?.required">
+				<input class="form-control ng-touched ng-pristine ng-valid" type="text" name="IdContrato" class="form-control" formControlName="IdContrato" [value]=0 [readonly]="EstadoRead" 
+		        [ngClass]="{'is-invalid': (FormReg.controls.IdContrato.touched || submitted)  
+		            && FormReg.controls.IdContrato.errors}" />
+				<span class="text-danger" *ngIf="(FormReg.controls.IdContrato.touched || submitted) 
+		                        && FormReg.controls.IdContrato.errors?.required">
 		                    Dato requerido.
 		                </span>
-				<span class="text-danger" *ngIf="(FormReg.controls.IdEmpresa.touched || submitted) 
-		                        && FormReg.controls.IdEmpresa.errors?.pattern">
+				<span class="text-danger" *ngIf="(FormReg.controls.IdContrato.touched || submitted) 
+		                        && FormReg.controls.IdContrato.errors?.pattern">
 		                    Dato numérico, 1 a 7 dígitos.
 		                </span>
 			</div>

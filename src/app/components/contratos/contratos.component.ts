@@ -5,9 +5,9 @@ import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { ModalDialogService } from "../../services/modal-dialog.service";
 
 @Component({
-  selector: 'app-contratos',
-  templateUrl: './contratos.component.html',
-  styleUrls: ['./contratos.component.css']
+  selector: "app-contratos",
+  templateUrl: "./contratos.component.html",
+  styleUrls: ["./contratos.component.css"]
 })
 export class ContratosComponent implements OnInit {
   EstadoRead: Boolean = false;
@@ -21,7 +21,7 @@ export class ContratosComponent implements OnInit {
     L: "(Listado)"
   };
 
-  AccionABMC = "L"; // inicialmente inicia en el listado de articulos (buscar con parametros)
+  AccionABMC = "L";
   Mensajes = {
     SD: " No se encontraron registros...",
     RD: " Revisar los datos ingresados..."
@@ -35,16 +35,13 @@ export class ContratosComponent implements OnInit {
 
   constructor(
     public formBuilder: FormBuilder,
-    //private articulosService: MockArticulosService,
     private ContratosServicio: ContratoService,
-    //private articulosFamiliasService: ArticulosFamiliasService,
     private modalDialogService: ModalDialogService
   ) {}
 
   ngOnInit() {
     this.Buscar();
-    this.FormFiltro = this.formBuilder.group({
-    });
+    this.FormFiltro = this.formBuilder.group({});
     this.FormReg = this.formBuilder.group({
       ContratoDescripcion: [
         "",
@@ -136,13 +133,13 @@ export class ContratosComponent implements OnInit {
     } else {
       if ((this.AccionABMC = "M")) {
         // modificar put
-        this.ContratosServicio
-          .put(itemCopy.IdContrato, itemCopy)
-          .subscribe((res: any) => {
+        this.ContratosServicio.put(itemCopy.IdContrato, itemCopy).subscribe(
+          (res: any) => {
             this.Volver();
             this.modalDialogService.Alert("Registro modificado correctamente.");
             this.Buscar();
-          });
+          }
+        );
       }
     }
   }
@@ -155,9 +152,9 @@ export class ContratosComponent implements OnInit {
       undefined,
       undefined,
       () =>
-        this.ContratosServicio
-          .delete(Emp.IdContrato)
-          .subscribe((res: any) => this.Buscar()),
+        this.ContratosServicio.delete(Emp.IdContrato).subscribe((res: any) =>
+          this.Buscar()
+        ),
       null
     );
   }
